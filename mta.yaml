@@ -1,0 +1,40 @@
+_schema-version: '3.1'
+ID: 2MyHANAApp
+version: 1.0.0
+description: "Projeto 2 - O Retorno."
+parameters:
+  enable-parallel-deployments: true
+build-parameters:
+  before-all:
+    - builder: custom
+      commands:
+        - npx cds build --production
+modules:
+  - name: 2MyHANAApp-srv
+    type: nodejs
+    path: /srv
+    parameters:
+      buildpack: nodejs_buildpack
+    build-parameters:
+      builder: npm
+    provides:
+      - name: srv-api # required by consumers of CAP services (e.g. approuter)
+        properties:
+          srv-url: ${default-url}
+    requires:
+      - name: 2MyHANAApp-db
+
+  - name: 2MyHANAApp-db-deployer
+    type: hdb
+    path: db
+    parameters:
+      buildpack: nodejs_buildpack
+    requires:
+      - name: 2MyHANAApp-db
+
+resources:
+  - name: 2MyHANAApp-db
+    type: com.sap.xs.hdi-container
+    parameters:
+      service: hana
+      service-plan: hdi-shared
