@@ -15,6 +15,9 @@ modules:
           srv-url: ${default-url}
     parameters:
       buildpack: nodejs_buildpack
+      memory: 512M
+      disk-quota: 1024M
+      command: node ./node_modules/@sap/cds/bin/cds-serve
     build-parameters:
       builder: npm
   - name: 2MyHANAApp-db-deployer
@@ -52,7 +55,11 @@ resources:
     properties:
       hdi-container-name: ${service-name}
   - name: cross-container-service-1
-    type: deleteme
+    type: org.cloudfoundry.existing-service
+    parameters:
+      service-name: MyHANAApp-dev
+    properties:
+      the-service-name: ${service-name}      
   - name: 2MyHANAApp-auth
     type: org.cloudfoundry.managed-service
     parameters:

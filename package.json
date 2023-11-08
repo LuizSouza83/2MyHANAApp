@@ -4,10 +4,20 @@
   "description": "Pro2 retorno",
   "repository": "<Add your repository here>",
   "license": "UNLICENSED",
-  "private": true,
+  "private": true ,
+  "dependencies": {
+    "@sap/cds": "^7",
+    "@sap/cds-hana": "^2",
+    "express": "^4",
+    "@sap/xssec": "^3",
+    "passport": "^0"
+},
   "scripts": {
     "start": "cds-serve",
-    "watch-interaction_itemsv2": "cds watch --open interaction_itemsv2/webapp/index.html?sap-ui-xx-viewCache=false"
+    "watch-interaction_itemsv2": "cds watch --open interaction_itemsv2/webapp/index.html?sap-ui-xx-viewCache=false",
+    "undeploy": "cf undeploy 2MyHANAApp --delete-services --delete-service-keys --delete-service-brokers",
+    "build": "rimraf resources mta_archives && mbt build --mtar archive",
+    "deploy": "cf deploy mta_archives/archive.mtar --retries 1"    
   },
   "cds": {
     "build": {
@@ -28,14 +38,11 @@
       "auth": "xsuaa"
     }
   },
-  "dependencies": {
-    "@sap/xssec": "^3",
-    "passport": "^0"
-  },
   "sapux": [
     "app/interaction_itemsv2"
   ],
   "devDependencies": {
+    "@sap/cds-dk": "^7",
     "@sap/ux-specification": "^1.108.17"
   }
 }
