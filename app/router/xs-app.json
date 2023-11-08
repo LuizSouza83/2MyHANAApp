@@ -1,7 +1,6 @@
 {
-  "welcomeFile": "/interaction_itemsv2/webapp/index.html",
-  
-  "authenticationMethod": "route","authenticationMethod": "route",
+   
+  "authenticationMethod": "route",
 
   "logout": {
     "logoutEndpoint": "/app-logout",
