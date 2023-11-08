@@ -6,7 +6,8 @@
   "license": "UNLICENSED",
   "private": true,
   "scripts": {
-    "start": "cds-serve"
+    "start": "cds-serve",
+    "watch-interaction_itemsv2": "cds watch --open interaction_itemsv2/webapp/index.html?sap-ui-xx-viewCache=false"
   },
   "cds": {
     "build": {
@@ -23,7 +24,18 @@
     "requires": {
       "db": {
         "kind": "hana-cloud"
-      }
+      },
+      "auth": "xsuaa"
     }
+  },
+  "dependencies": {
+    "@sap/xssec": "^3",
+    "passport": "^0"
+  },
+  "sapux": [
+    "app/interaction_itemsv2"
+  ],
+  "devDependencies": {
+    "@sap/ux-specification": "^1.108.17"
   }
 }
