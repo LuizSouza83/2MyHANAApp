@@ -30,7 +30,9 @@ modules:
           key: ServiceName_1
           service: ~{the-service-name}
     parameters:
-      buildpack: nodejs_buildpack
+      buildpack: nodejs_buildpack,
+    build-parameters:
+      ignore: ["default-env.json", ".env"]
   - name: 2MyHANAApp
     type: approuter.nodejs
     path: app/router
@@ -75,4 +77,5 @@ build-parameters:
   before-all:
     - builder: custom
       commands:
-        - npx cds build --production
+        - npm install --production
+        - npx -p @sap/cds-dk cds build --production
